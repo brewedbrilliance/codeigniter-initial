@@ -1,5 +1,5 @@
-## codeigniter bootstrap project 
-# codeigniter4 bootstrap dockerized by brewedbrilliance
+## codeigniter bootstrap project by brewedbrilliance
+# codeigniter4 bootstrap dockerized 
 
 ### Requirements:
 * docker engine
