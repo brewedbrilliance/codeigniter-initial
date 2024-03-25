@@ -1,0 +1,41 @@
+version: '3'
+
+services:
+  # MySQL database service
+  db:
+    image: mysql:5.7
+    container_name: mysql_db
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: local-root-password
+      MYSQL_DATABASE: codeigniter_db
+      MYSQL_USER: codeigniter_user
+      MYSQL_PASSWORD: local-ciu-password
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+
+  # CodeIgniter application service
+  codeigniter:
+    build: 
+      context: ./codeigniter_img
+      dockerfile: Dockerfile
+    container_name: codeigniter_app
+    restart: unless-stopped
+    depends_on:
+      - db
+    volumes:
+      - ./codeigniter_app/brewedBrillianceApp:/var/www/html
+    ports:
+      - "8080:80"
+    environment:
+      MYSQL_HOST: db
+      MYSQL_DATABASE: codeigniter_db
+      MYSQL_USER: codeigniter_user
+      MYSQL_PASSWORD: local-ciu-password
+      CI_ENVIRONMENT: development
+
+volumes:
+  db_data:
+
